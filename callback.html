@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Muse Uploader Sign-in</title><link rel="stylesheet" href="style.css"><link rel="icon" href="icon.png">
+<style>code{display:block;word-break:break-all;padding:12px;border:1px solid var(--muted);border-radius:8px;margin:8px 0}button{padding:8px 16px;font:inherit;cursor:pointer}</style></head><body>
+<header><img src="icon.png" alt=""><h1>Muse Uploader</h1></header>
+<div id="out"></div>
+<script>
+const p=new URLSearchParams(location.search),o=document.getElementById('out');
+if(p.get('code')){
+  o.innerHTML='<p>TikTok sign-in worked. Copy this code back into the uploader:</p><code id="c"></code><button id="b">Copy</button>';
+  document.getElementById('c').textContent=p.get('code');
+  document.getElementById('b').onclick=()=>navigator.clipboard.writeText(p.get('code')).then(()=>{document.getElementById('b').textContent='Copied'});
+}else if(p.get('error')){
+  o.innerHTML='<p>Sign-in failed:</p><code id="c"></code>';
+  document.getElementById('c').textContent=p.get('error')+': '+(p.get('error_description')||'');
+}else{o.innerHTML='<p>This page receives the TikTok sign-in for Muse Uploader. Nothing to do here.</p>'}
+</script></body></html>
